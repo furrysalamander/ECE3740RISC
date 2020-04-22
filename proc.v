@@ -72,6 +72,7 @@ module proc(DIN, Resetn, Clock, Run, Done);
             T1: // define signals in T1
                 case (III)
                     mv: begin
+                        // sample change
                         // ... your code goes here
                     end
                     mvt: begin
