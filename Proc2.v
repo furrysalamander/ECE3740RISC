@@ -73,7 +73,6 @@ module proc(DIN, Resetn, Clock, Run, Done);
                 case (III)
                     mv: begin
                         // ... your code goes here
-						
 						if(III == 1) begin     //its a d type
 						sel = IMM;     //all 15 bits of each
 						end

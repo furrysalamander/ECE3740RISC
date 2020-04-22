@@ -72,14 +72,28 @@ module proc(DIN, Resetn, Clock, Run, Done);
             T1: // define signals in T1
                 case (III)
                     mv: begin
-                        // sample change
                         // ... your code goes here
+                        if (IMM) begin
+                            // immediate mode
+                            Sel = Sel_D;
+                        end
+                        else begin
+                            // register
+                            Sel = rY;
+                        end
+                        Rin = Xreg;
+                        Done = 1;
                     end
                     mvt: begin
                         // ... your code goes here
+                        Sel = Sel_D8;
+                        Rin = Xreg;
+                        Done = 1;
                     end
                     add, sub: begin
                         // ... your code goes here
+                        Sel = rX;
+                        Ain = 1;
                     end
                     default: ;
                 endcase
@@ -87,9 +101,24 @@ module proc(DIN, Resetn, Clock, Run, Done);
                 case (III)
                     add: begin
                         // ... your code goes here
+                        if (IMM) begin
+                            Sel = Sel_D;
+                        end
+                        else begin
+                            Sel = rY;
+                        end
+                        Gin = 1;
                     end
                     sub: begin
                         // ... your code goes here
+                        if (IMM) begin
+                            Sel = Sel_D;
+                        end
+                        else begin
+                            Sel = rY;
+                        end
+                        Gin = 1;
+                        AddSub = 1;
                     end
                     default: ; 
                 endcase
@@ -97,6 +126,9 @@ module proc(DIN, Resetn, Clock, Run, Done);
                 case (III)
                     add, sub: begin
                         // ... your code goes here
+                        Sel = Sel_G;
+                        Rin = Xreg;
+                        Done = 1;
                     end
                     default: ;
                 endcase
